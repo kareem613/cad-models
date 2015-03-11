@@ -22,23 +22,16 @@ function getParameterDefinitions() {
 }
 
 function main(params) {
-  insideCollarRadius = params.baseCenterHoleRadius + params.insideCollarRadiusOffset;
+    insideCollarRadius = params.baseCenterHoleRadius + params.insideCollarRadiusOffset;
+    outsideCollarRadius = insideCollarRadius + params.collarWallThickness + params.collarSpacing/2;
   
-  
-  
-  if(params.innerAssembly == 1)
-    return assembly(params, insideCollarRadius)
-        .union(collar(insideCollarRadius, params));
-  else{
-    var outsideCollarRadius = insideCollarRadius + params.collarWallThickness + params.collarSpacing/2;
-    return assembly(params, insideCollarRadius)
-        .union(collar(outsideCollarRadius, params));
-  }
-  
-
+    collarRadius = params.innerAssembly == 1 ? insideCollarRadius : outsideCollarRadius;
+      
+    collarAssembly = collar(collarRadius, params);
+    return assembly(params, collarAssembly, insideCollarRadius);
 }
 
-function assembly(params, insideCollarRadius)
+function assembly(params, collarAssembly, insideCollarRadius)
 {
     var gapRingInnerRadius = insideCollarRadius + params.collarWallThickness + params.gapRingInnerOffset;
     var gapRingOuterRadius = gapRingInnerRadius + params.gapRingSize;
@@ -49,6 +42,7 @@ function assembly(params, insideCollarRadius)
         .union(allSpokes(params))
         .subtract(allPerimeterHoles(holeDistance, params))
         .subtract(baseCenterHole(params))
+        .union(collarAssembly)
     ;
     return assemblyPart;
 }
