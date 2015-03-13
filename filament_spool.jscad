@@ -1,7 +1,6 @@
 // title: Filament Spool
 // author: Kareem Sultan 
 // license: Creative Commons CC BY
-// revision: 0.2
 // tags: spool, filament, 3dprinting
 
 function getParameterDefinitions() {
@@ -9,19 +8,20 @@ function getParameterDefinitions() {
     { name: 'innerAssembly', caption: 'Assembly', type: 'choice', values: [0,1], captions: ["Outer", "Inner"], initial: 0 },
     { name: 'baseHeight', caption: 'Base Height', type: 'float', initial: 2.5 },
     { name: 'baseRadius', caption: 'Base Radius', type: 'int', initial: 65 },
-    { name: 'baseCenterHoleRadius', caption: 'Base Center Hole Radius', type: 'int', initial: 15 },
+    { name: 'baseCenterHoleRadius', caption: 'Base Center Hole Radius', type: 'int', initial: 18   },
     { name: 'spokeWidth', caption: 'Spoke Width', type: 'int', initial: 4 },
     { name: 'numSpokes', caption: 'Spoke Count', type: 'int', initial: 6 },
     { name: 'insideCollarRadiusOffset', caption: 'Inside Collar Radius Offset (from center hole)', type: 'int', initial: 10 },
     { name: 'collarWallHeight', caption: 'Collar Wall Height', type: 'int', initial: 30 },
     { name: 'collarWallThickness', caption: 'Collar Wall Thickness', type: 'int', initial: 2 },
     { name: 'collarSpacing', caption: 'Collar Spacing', type: 'float', initial: 1 },
-    { name: 'gapRingSize', caption: 'Gap Ring Size', type: 'int', initial: 20 },
+    { name: 'gapRingSize', caption: 'Gap Ring Size', type: 'int', initial: 16 },
     { name: 'gapRingInnerOffset', caption: 'Gap Ring Inner Offset', type: 'int', initial: 10 }
   ];
 }
 
 function main(params) {
+    
     insideCollarRadius = params.baseCenterHoleRadius + params.insideCollarRadiusOffset;
     outsideCollarRadius = insideCollarRadius + params.collarWallThickness + params.collarSpacing/2;
   
